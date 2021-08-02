@@ -115,10 +115,10 @@ public class TestRule extends TestWatcher {
     	extentReport.flush();
     	
 		//FINISH DRIVER
-    	if (driver != null) {
-    		driver.quit();
-    		driver = null;
-		}
+//    	if (driver != null) {
+//    		driver.quit();
+//    		driver = null;
+//		}
     	
     	//FINISH SIKULI
     	if (sikuliApp != null) {
@@ -219,7 +219,9 @@ public class TestRule extends TestWatcher {
 		capabilities.setCapability(AndroidMobileCapabilityType.AUTO_GRANT_PERMISSIONS, true);
 		capabilities.setCapability("automationName", "UIAutomator2");
 		try {
-			driver = new AndroidDriver<MobileElement>(new URL(Utils.getTestProperty("device.url")), capabilities);
+			if (driver == null) {
+				driver = new AndroidDriver<MobileElement>(new URL(Utils.getTestProperty("device.url")), capabilities);
+			}
 		} catch (MalformedURLException e) {
 			throw new RuntimeException(e);
 		}
